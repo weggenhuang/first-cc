@@ -107,6 +107,14 @@
       padding-top: .5rem;
     }
     .header h1 { font-size: 1.15rem; font-weight: 600; letter-spacing: -.3px; }
+    .header-left { text-align: left; }
+    .date-display {
+      display: block;
+      font-size: .65rem;
+      color: var(--text-secondary);
+      margin-top: 2px;
+      letter-spacing: .2px;
+    }
     .mode-badge {
       font-size: .7rem;
       font-weight: 600;
@@ -399,7 +407,10 @@
 
       <!-- Header -->
       <div class="header">
-        <h1>🍅 番茄钟</h1>
+        <div class="header-left">
+          <h1>🍅 番茄钟</h1>
+          <span class="date-display" id="dateDisplay"></span>
+        </div>
         <span class="mode-badge" id="modeBadge">专注</span>
       </div>
 
@@ -874,16 +885,30 @@
     });
 
     // =================================================================
+    //  Date display
+    // =================================================================
+    function updateDateDisplay() {
+      const now = new Date();
+      const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+      const y = now.getFullYear();
+      const m = now.getMonth() + 1;
+      const d = now.getDate();
+      const w = weekdays[now.getDay()];
+      $('dateDisplay').textContent = `${y}年${m}月${d}日 ${w}`;
+    }
+
+    // =================================================================
     //  Init
     // =================================================================
     (async () => {
       await loadState();
+      updateDateDisplay();
       updateDisplay();
       syncUI();
       updateStats();
       renderTasks();
       if (window.electronAPI) window.electronAPI.updateTrayTimer(fmt(STATE.seconds));
-      console.log('🍅 番茄钟已启动！ 快捷键: Space=开始/暂停  R=重置');
+      console.log('🍅 番茄钟已启动！ 快捷键: Space=开始/暂停  R:重置');
     })();
   </script>
 </body>

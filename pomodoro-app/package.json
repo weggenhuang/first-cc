@@ -1,0 +1,26 @@
+{
+  "name": "pomodoro-app",
+  "version": "1.0.0",
+  "description": "🍅 桌面番茄钟 - 专注效率工具",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.pomodoro.app",
+    "productName": "番茄钟",
+    "win": {
+      "target": ["nsis"],
+      "icon": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "devDependencies": {
+    "electron": "^33.0.0"
+  }
+}
